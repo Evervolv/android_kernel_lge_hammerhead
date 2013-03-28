@@ -41,6 +41,8 @@ import subprocess
 
 allowed_warnings = set([
     "return_address.c:62",
+    "transport.c:653", # 'midQ' may be used uninitialized in this function with gcc >= 4.8
+    "bapRsnTxRx.c:222", # 'pPacket' may be used uninitialized in this function with gcc >= 4.8
  ])
 
 # Capture the name of the object file, can find it.
