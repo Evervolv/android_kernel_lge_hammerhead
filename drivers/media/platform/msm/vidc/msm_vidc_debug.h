@@ -52,6 +52,7 @@ extern int msm_vidc_debug_out;
 extern int msm_fw_debug;
 extern int msm_fw_debug_mode;
 extern int msm_fw_low_power_mode;
+extern int msm_vidc_vpe_csc_601_to_709;
 
 #define dprintk(__level, __fmt, arg...)	\
 	do { \
