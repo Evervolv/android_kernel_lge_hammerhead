@@ -1250,12 +1250,9 @@ static ssize_t read_##file_name					\
 }
 
 read_one(kgamma_w,   5);
-read_one(kgamma_rp,  7);
-read_one(kgamma_rn,  9);
-read_one(kgamma_gp, 11);
-read_one(kgamma_gn, 13);
-read_one(kgamma_bp, 15);
-read_one(kgamma_bn, 17);
+read_one(kgamma_r,   7);
+read_one(kgamma_g,  11);
+read_one(kgamma_b,  15);
 
 #define write_one(file_name, cmd)				\
 static ssize_t write_##file_name				\
@@ -1266,32 +1263,23 @@ static ssize_t write_##file_name				\
 }
 
 write_one(kgamma_w,   5);
-write_one(kgamma_rp,  7);
-write_one(kgamma_rn,  9);
-write_one(kgamma_gp, 11);
-write_one(kgamma_gn, 13);
-write_one(kgamma_bp, 15);
-write_one(kgamma_bn, 17);
+write_one(kgamma_r,   7);
+write_one(kgamma_g,  11);
+write_one(kgamma_b,  15);
 
 #define define_one_rw(_name)					\
 static DEVICE_ATTR(_name, 0644, read_##_name, write_##_name);
 
 define_one_rw(kgamma_w);
-define_one_rw(kgamma_rp);
-define_one_rw(kgamma_rn);
-define_one_rw(kgamma_gp);
-define_one_rw(kgamma_gn);
-define_one_rw(kgamma_bp);
-define_one_rw(kgamma_bn);
+define_one_rw(kgamma_r);
+define_one_rw(kgamma_g);
+define_one_rw(kgamma_b);
 
 static struct attribute *dsi_panel_attributes[] = {
 	&dev_attr_kgamma_w.attr,
-	&dev_attr_kgamma_rp.attr,
-	&dev_attr_kgamma_rn.attr,
-	&dev_attr_kgamma_gp.attr,
-	&dev_attr_kgamma_gn.attr,
-	&dev_attr_kgamma_bp.attr,
-	&dev_attr_kgamma_bn.attr,
+	&dev_attr_kgamma_r.attr,
+	&dev_attr_kgamma_g.attr,
+	&dev_attr_kgamma_b.attr,
 	&dev_attr_kgamma_send.attr,
 	NULL
 };
