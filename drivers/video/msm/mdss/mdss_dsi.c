@@ -28,9 +28,10 @@
 #include "mdss_dsi.h"
 #include "mdss_debug.h"
 
+extern struct mdss_dsi_ctrl_pdata *local_ctrl;
+
 static unsigned char *mdss_dsi_base;
 static int mdss_dsi_use_vdd_supply = 1;
-extern struct mdss_panel_data *cmds_panel_data;
 
 static int mdss_dsi_regulator_init(struct platform_device *pdev)
 {
@@ -130,8 +131,6 @@ static int mdss_dsi_panel_power_on(struct mdss_panel_data *pdata, int enable)
 	ctrl_pdata = container_of(pdata, struct mdss_dsi_ctrl_pdata,
 				panel_data);
 	pr_debug("%s: enable=%d\n", __func__, enable);
-
-	cmds_panel_data = pdata;
 
 	if (enable) {
 		if (ctrl_pdata->power_data.num_vreg > 0) {
@@ -1228,6 +1227,8 @@ int dsi_panel_device_register(struct platform_device *pdev,
 			ctrl_pdata->ctrl_base, ctrl_pdata->reg_size);
 		ctrl_pdata->ndx = 1;
 	}
+
+	local_ctrl = ctrl_pdata;
 
 	pr_debug("%s: Panal data initialized\n", __func__);
 	return 0;
