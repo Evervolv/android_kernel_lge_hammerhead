@@ -30,7 +30,6 @@
 #include <linux/of_device.h>
 #include <linux/of_gpio.h>
 #include <linux/qpnp/qpnp-adc.h>
-#include <linux/fastchg.h>
 
 /* Register definitions */
 #define INPUT_SRC_CONT_REG              0X00
@@ -164,8 +163,8 @@ struct current_limit_entry {
 };
 
 static struct current_limit_entry adap_tbl[] = {
-	{1500, 1280},
-	{2000, 1696},
+	{1200, 1024},
+	{2000, 1536},
 };
 
 static int bq24192_step_down_detect_disable(struct bq24192_chip *chip);
@@ -333,12 +332,12 @@ static int bq24192_set_input_i_limit(struct bq24192_chip *chip, int ma)
 		pr_err("can't find %d in icl_ma_table. Use min.\n", ma);
 		i = 0;
 	}
-	
+
 	temp = icl_ma_table[i].value;
 
 	if (ma > chip->max_input_i_ma) {
 		chip->saved_input_i_ma = ma;
-		pr_debug("reject %d mA due to therm mitigation\n", ma);
+		pr_info("reject %d mA due to therm mitigation\n", ma);
 		return 0;
 	}
 
@@ -346,7 +345,7 @@ static int bq24192_set_input_i_limit(struct bq24192_chip *chip, int ma)
 		chip->saved_input_i_ma = ma;
 
 	chip->therm_mitigation = false;
-	pr_debug("input current limit = %d setting 0x%02x\n", ma, temp);
+	pr_info("input current limit = %d setting 0x%02x\n", ma, temp);
 	return bq24192_masked_write(chip->client, INPUT_SRC_CONT_REG,
 			INPUT_CURRENT_LIMIT_MASK, temp);
 }
